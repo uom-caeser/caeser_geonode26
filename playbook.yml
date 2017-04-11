@@ -1,0 +1,48 @@
+- name: Provision CAESER Geonode into Production
+  hosts: geonode
+  remote_user: caeser
+  vars:
+    app_name: caeser_geoportal
+    github_user: uom-caeser
+    server_name: geoportal.memphis.edu
+    deploy_user: caeser
+    code_repository: "https://github.com/uom-caeser/caeser_geoportal.git"
+    branch_name: master
+    virtualenv_dir: "/home/caeser/.venvs"
+    site_url: "https://geoportal.memphis.edu/"
+    geoserver_url: "http://build.geonode.org/geoserver/latest/geoserver-2.9.x-oauth2.war"
+    pg_max_connections: 100
+    pg_shared_butters: 256MB
+    tomcat_xms: "1024M"
+    tomcat_xmx: "2096M"
+    tomcat_maxpermsize: "1024M"
+    tomcat_permsize: "512M"
+    letsencrypt: True
+    osgeo_importer: True
+  gather_facts: False
+  pre_tasks:
+    - name: Install Python for Ansible
+      become: yes
+      become_user: root
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python)
+    - name: Reconfigure Locales
+      become: yes
+      become_user: root
+      shell: "{{ item }}"
+      with_items:
+        - "export LANGUAGE=en_US.UTF-8"
+        - "export LANG=en_US.UTF-8"
+        - "export LC_ALL=en_US.UTF-8"
+        - "locale-gen --purge en_US.UTF-8"
+        - "echo 'LANG=en_US.UTF-8\nLANGUAGE=en_US:en\n' > /etc/default/locale"
+    - name: "Install curl, vim, and unzip"
+      become: yes
+      become_user: root
+      apt: name="{{ item }}" state=latest
+      with_items:
+        - curl
+        - vim
+        - unzip
+    - setup:
+  roles:
+    - { role: Geonode.geonode }

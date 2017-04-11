@@ -1,0 +1,30 @@
+body {
+    background: #fff;
+    font-family: 'Oswald', sans-serif;
+}
+
+.navbar-brand {
+    background: url(/static/img/logo.png) 15px 0 no-repeat;
+    height: 50px;
+    margin-right: 15px;
+    margin-top: 10px;
+    text-indent: -9999em;
+    width: 170px;
+}
+
+.navbar-inverse {
+    background-color: #363636;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+    color: #888C8F;
+}
+
+.jumbotron {
+    background: #181D61;
+}
+
