@@ -12,10 +12,6 @@ body {
     width: 170px;
 }
 
-.navbar-inverse {
-    background-color: #363636;
-}
-
 .navbar-inverse .navbar-nav>li>a {
     color: #fff;
 }
@@ -25,6 +21,6 @@ body {
 }
 
 .jumbotron {
-    background: #181D61;
+    background: #181D61 !important;
 }
 
